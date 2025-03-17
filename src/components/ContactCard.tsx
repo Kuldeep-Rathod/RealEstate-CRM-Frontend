@@ -55,76 +55,64 @@ const ContactCard: FC<ContactCardProps> = ({
     };
 
     return (
-        <div className="p-2 shadow-md rounded-lg border w-full max-w-xs mx-auto bg-gray-900 border-gray-700 text-white text-xs">
-            <div className="flex items-center justify-between gap-2">
-                {/* Contact Details */}
-                <div className="flex flex-col text-start">
-                    <p className="text-sm font-semibold truncate">{name}</p>
-                    <p className="text-gray-300 truncate">{phone}</p>
-                    <p className="text-gray-400 truncate">{company}</p>
-                    <p
-                        className={`px-2 py-0.5 text-[10px] font-medium rounded ${
-                            status === "Active" ? "bg-green-600" : "bg-gray-600"
-                        }`}
-                    >
-                        {status}
-                    </p>
-                </div>
+        <div className="contact-card">
+            <div className="contact-details">
+                <p className="name">{name}</p>
+                <p className="phone">{phone}</p>
+                <p className="company">{company}</p>
+            </div>
+            <div className="status">
+                <p
+                    className={`status ${
+                        status === "Active" ? "active" : "inactive"
+                    }`}
+                >
+                    {status}
+                </p>
+            </div>
+            <div className="actions">
+                <button
+                    className="call"
+                    onClick={() => (window.location.href = `tel:${phone}`)}
+                >
+                    <PhoneCall size={12} />
+                </button>
 
-                {/* Action Buttons */}
-                <div className="flex gap-1">
-                    <button
-                        className="p-1.5 rounded bg-blue-500 text-white hover:bg-blue-600"
-                        onClick={() => (window.location.href = `tel:${phone}`)}
-                    >
-                        <PhoneCall size={12} />
-                    </button>
+                <button
+                    className="message"
+                    onClick={() =>
+                        window.open(`https://wa.me/${phone}`, "_blank")
+                    }
+                >
+                    <MessageCircleMore size={12} />
+                </button>
 
-                    <button
-                        className="p-1.5 rounded bg-blue-700 text-white hover:bg-blue-800"
-                        onClick={() =>
-                            window.open(`https://wa.me/${phone}`, "_blank")
-                        }
-                    >
-                        <MessageCircleMore size={12} />
-                    </button>
-
-                    <button
-                        onClick={() => setShowModal(true)}
-                        className="p-1.5 rounded bg-gray-800 text-white hover:bg-gray-900"
-                    >
-                        <SquarePen size={12} />
-                    </button>
-                </div>
+                <button onClick={() => setShowModal(true)} className="edit">
+                    <SquarePen size={12} />
+                </button>
             </div>
 
-            {/* Modal for Viewing/Editing Notes */}
             {showModal && (
-                <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-3">
-                    <div className="bg-white p-4 rounded-lg shadow-xl text-center w-full max-w-xs">
-                        <h3 className="text-sm font-semibold mb-2 text-gray-900">
-                            {isEditing ? "Edit Notes" : "Notes"}
-                        </h3>
+                <div className="modal">
+                    <div className="modal-content">
+                        <h3>{isEditing ? "Edit Notes" : "Notes"}</h3>
 
                         {isEditing ? (
                             <textarea
                                 value={newNotes}
                                 onChange={(e) => setNewNotes(e.target.value)}
-                                className="w-full p-2 border rounded text-gray-900 text-xs"
                                 rows={3}
                             />
                         ) : (
-                            <p className="text-gray-700 text-xs leading-snug">
-                                {notes}
-                            </p>
+                            <p>{notes}</p>
                         )}
 
-                        <div className="mt-3 flex justify-center gap-2">
+                        <div className="modal-actions">
                             {isEditing ? (
                                 <>
                                     <button
                                         onClick={handleSave}
-                                        className="px-3 py-1 rounded bg-green-600 text-white hover:bg-green-700 text-xs flex items-center gap-1"
+                                        className="save"
                                     >
                                         <Check size={12} /> Save
                                     </button>
@@ -133,7 +121,7 @@ const ContactCard: FC<ContactCardProps> = ({
                                             setIsEditing(false);
                                             setNewNotes(notes);
                                         }}
-                                        className="px-3 py-1 rounded bg-gray-400 text-white hover:bg-gray-500 text-xs flex items-center gap-1"
+                                        className="cancel"
                                     >
                                         <X size={12} /> Cancel
                                     </button>
@@ -142,13 +130,13 @@ const ContactCard: FC<ContactCardProps> = ({
                                 <>
                                     <button
                                         onClick={() => setIsEditing(true)}
-                                        className="px-3 py-1 rounded bg-blue-600 text-white hover:bg-blue-700 text-xs flex items-center gap-1"
+                                        className="edit"
                                     >
                                         <SquarePen size={12} /> Edit
                                     </button>
                                     <button
                                         onClick={() => setShowModal(false)}
-                                        className="px-3 py-1 rounded bg-black text-white hover:bg-gray-900 text-xs"
+                                        className="close"
                                     >
                                         Close
                                     </button>

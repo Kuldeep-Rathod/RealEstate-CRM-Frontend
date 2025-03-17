@@ -1,0 +1,49 @@
+.contact-list {
+    padding: 1rem;
+
+    .heading {
+        font-size: 1.25rem;
+        font-weight: 600;
+        color: white;
+        margin-bottom: 0.5rem;
+    }
+
+    .loading,
+    .error,
+    .empty {
+        margin-top: 0.5rem;
+        font-size: 0.875rem;
+    }
+
+    .loading {
+        color: #9ca3af;
+    }
+
+    .error {
+        color: #ef4444;
+    }
+
+    .empty {
+        color: #9ca3af;
+    }
+
+    .container {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+        margin-top: 0.5rem;
+    }
+
+    /* Responsive */
+    @media (max-width: 600px) {
+        padding: 0.5rem;
+
+        .heading {
+            font-size: 1rem;
+        }
+
+        .container {
+            gap: 0.4rem;
+        }
+    }
+}

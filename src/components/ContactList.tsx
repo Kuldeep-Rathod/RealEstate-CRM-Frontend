@@ -62,15 +62,15 @@ const ContactList: FC<ContactListProps> = ({ handleInfoClick }) => {
     };
 
     return (
-        <div className="p-4">
-            <h2 className="text-xl font-semibold text-white">Contact List</h2>
+        <div className="contact-list">
+            <h2 className="heading">Contact List</h2>
 
             {loading ? (
-                <p className="text-gray-400 mt-3">Loading contacts...</p>
+                <p className="loading">Loading contacts...</p>
             ) : error ? (
-                <p className="text-red-500 mt-3">{error}</p>
+                <p className="error">{error}</p>
             ) : (
-                <div className="space-y-3 mt-3">
+                <div className="container">
                     {contacts.length > 0 ? (
                         contacts.map((contact) => (
                             <ContactCard
@@ -81,7 +81,7 @@ const ContactList: FC<ContactListProps> = ({ handleInfoClick }) => {
                             />
                         ))
                     ) : (
-                        <p className="text-gray-400">No contacts found.</p>
+                        <p className="empty">No contacts found.</p>
                     )}
                 </div>
             )}

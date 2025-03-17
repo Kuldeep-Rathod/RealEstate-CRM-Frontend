@@ -1,12 +1,15 @@
-import "./App.css";
-import ContactList, { Contact } from "./components/ContactList";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import ContactsPage from "./pages/ContactPage";
 
-const App = () => {
-    const handleInfoClick = (contact: Contact) => {
-        console.log("Clicked Contact:", contact);
-    };
-
-    return <ContactList handleInfoClick={handleInfoClick} />;
-};
+function App() {
+    return (
+        <Router>
+            <Routes>
+                <Route path="/" element={<h1>Home Page</h1>} />
+                <Route path="/contacts" element={<ContactsPage />} />
+            </Routes>
+        </Router>
+    );
+}
 
 export default App;

@@ -1,0 +1,146 @@
+.contact-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.5rem;
+    border-bottom: 1px solid #374151;
+    background: #1f2937;
+    color: white;
+    font-size: 0.875rem;
+    transition: background 0.2s ease-in-out;
+    cursor: pointer;
+    gap: 0.5rem;
+    border-radius: 0.5rem;
+
+    &:hover {
+        background: #2d3748;
+    }
+
+    .contact-details {
+        flex: 1;
+        display: flex;
+        flex-direction: column; // Name, phone, company stacked
+        overflow: hidden;
+
+        p {
+            margin: 0.05rem 0;
+        }
+
+        .name {
+            font-weight: 600;
+            font-size: 0.875rem;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .phone,
+        .company {
+            color: #9ca3af;
+            font-size: 0.75rem;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+    }
+
+    .status {
+        font-size: 0.7rem;
+        font-weight: 500;
+        padding: 0.15rem 0.5rem;
+        border-radius: 0.5rem;
+        text-transform: uppercase;
+        white-space: nowrap;
+        flex-shrink: 0;
+
+        &.active {
+            background: #10b981;
+            color: white;
+        }
+
+        &.inactive {
+            background: #6b7280;
+            color: white;
+        }
+    }
+
+    .actions {
+        display: flex;
+        gap: 0.25rem;
+
+        button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.4rem; // Adjusted for compact size
+            border-radius: 50%;
+            border: none;
+            color: white;
+            background-color: transparent;
+
+            svg {
+                width: 0.875rem;
+                height: 0.875rem;
+                stroke: white;
+            }
+
+            &.call {
+                background-color: #3b82f6;
+                &:hover {
+                    background-color: #2563eb;
+                }
+            }
+            &.message {
+                background-color: #1e40af;
+                &:hover {
+                    background-color: #1e3a8a;
+                }
+            }
+            &.edit {
+                background-color: #374151;
+                &:hover {
+                    background-color: #1f2937;
+                }
+            }
+        }
+    }
+
+    /* Responsive for Mobile */
+    @media (max-width: 600px) {
+        flex-direction: row;
+        align-items: center;
+        padding: 0.4rem;
+        font-size: 0.75rem; // Reduce text size for compactness
+
+        .contact-details {
+            flex: 1;
+            font-size: 0.75rem;
+
+            .name {
+                font-size: 0.875rem;
+            }
+
+            .phone,
+            .company {
+                font-size: 0.7rem;
+            }
+        }
+
+        .status {
+            font-size: 0.65rem;
+            padding: 0.1rem 0.4rem;
+        }
+
+        .actions {
+            gap: 0.2rem;
+
+            button {
+                padding: 0.35rem; // Reduce button padding
+                svg {
+                    width: 0.75rem;
+                    height: 0.75rem;
+                }
+            }
+        }
+    }
+}
