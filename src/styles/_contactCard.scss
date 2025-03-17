@@ -46,22 +46,54 @@
     }
 
     .status {
-        font-size: 0.7rem;
-        font-weight: 500;
+        position: relative;
+        cursor: pointer;
         padding: 0.15rem 0.5rem;
         border-radius: 0.5rem;
+        color: white;
         text-transform: uppercase;
-        white-space: nowrap;
-        flex-shrink: 0;
 
-        &.active {
-            background: #10b981;
-            color: white;
+        &.new {
+            background: #3b82f6; // Blue
+        }
+    
+        &.hot {
+            background: #ef4444; // Red
+        }
+    
+        &.cold {
+            background: #6b7280; // Gray
+        }
+    
+        &.warm {
+            background: #f59e0b; // Orange
         }
 
-        &.inactive {
-            background: #6b7280;
-            color: white;
+        .status-dropdown {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: #1f2937;
+            border-radius: 0.5rem;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+            z-index: 10;
+            padding: 0.3rem;
+            min-width: 100px;
+
+            .status-option {
+                padding: 0.3rem;
+                cursor: pointer;
+                transition: background 0.2s;
+
+                &:hover {
+                    background: #2d3748;
+                }
+
+                &.selected {
+                    font-weight: bold;
+                    color: #10b981;
+                }
+            }
         }
     }
 

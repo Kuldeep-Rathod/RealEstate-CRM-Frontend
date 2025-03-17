@@ -29,9 +29,38 @@ const ContactCard: FC<ContactCardProps> = ({
     notes,
     onUpdateNotes,
 }) => {
+    const [leadStatus, setLeadStatus] = useState(status);
     const [showModal, setShowModal] = useState(false);
     const [newNotes, setNewNotes] = useState(notes);
     const [isEditing, setIsEditing] = useState(false);
+    const [showStatusDropdown, setShowStatusDropdown] = useState(false);
+
+    const handleStatusChange = async (selectedStatus: string) => {
+        setLeadStatus(selectedStatus); // Update UI immediately
+        setShowStatusDropdown(false); // Hide dropdown after selection
+
+        try {
+            const response = await fetch(
+                `http://127.0.0.1:5000/api/v1/leads/${_id}`,
+                {
+                    method: "PUT",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({ status: selectedStatus }),
+                }
+            );
+
+            if (!response.ok) {
+                throw new Error("Failed to update status");
+            }
+
+            console.log("Status updated successfully");
+        } catch (error) {
+            console.error("Error updating status:", error);
+            setLeadStatus(status); // Revert if API fails
+        }
+    };
 
     const handleSave = async () => {
         try {
@@ -61,14 +90,26 @@ const ContactCard: FC<ContactCardProps> = ({
                 <p className="phone">{phone}</p>
                 <p className="company">{company}</p>
             </div>
-            <div className="status">
-                <p
-                    className={`status ${
-                        status === "Active" ? "active" : "inactive"
-                    }`}
-                >
-                    {status}
-                </p>
+            {/* Status Dropdown */}
+            <div
+                className="status"
+                onClick={() => setShowStatusDropdown(!showStatusDropdown)}
+            >
+                <p className={`status ${leadStatus}`}>{leadStatus}</p>
+
+                {showStatusDropdown && (
+                    <div className="status-dropdown">
+                        {["new", "hot", "cold", "warm"].map((option) => (
+                            <div
+                                key={option}
+                                className={`status-option ${option}`}
+                                onClick={() => handleStatusChange(option)}
+                            >
+                                {option}
+                            </div>
+                        ))}
+                    </div>
+                )}
             </div>
             <div className="actions">
                 <button
@@ -93,52 +134,59 @@ const ContactCard: FC<ContactCardProps> = ({
             </div>
 
             {showModal && (
-    <div className="modal">
-        <div className="modal-content">
-            <h3>{isEditing ? "Edit Notes" : "Notes"}</h3>
+                <div className="modal">
+                    <div className="modal-content">
+                        <h3>{isEditing ? "Edit Notes" : "Notes"}</h3>
 
-            {isEditing ? (
-                <textarea
-                    value={newNotes}
-                    onChange={(e) => setNewNotes(e.target.value)}
-                    rows={3}
-                />
-            ) : (
-                <p>{notes}</p>
+                        {isEditing ? (
+                            <textarea
+                                value={newNotes}
+                                onChange={(e) => setNewNotes(e.target.value)}
+                                rows={3}
+                            />
+                        ) : (
+                            <p>{notes}</p>
+                        )}
+
+                        <div className="modal-actions">
+                            {isEditing ? (
+                                <>
+                                    <button
+                                        onClick={handleSave}
+                                        className="save"
+                                    >
+                                        <Check size={12} /> Save
+                                    </button>
+                                    <button
+                                        onClick={() => {
+                                            setIsEditing(false);
+                                            setNewNotes(notes);
+                                        }}
+                                        className="cancel"
+                                    >
+                                        <X size={12} /> Cancel
+                                    </button>
+                                </>
+                            ) : (
+                                <>
+                                    <button
+                                        onClick={() => setIsEditing(true)}
+                                        className="edit"
+                                    >
+                                        <SquarePen size={12} /> Edit
+                                    </button>
+                                    <button
+                                        onClick={() => setShowModal(false)}
+                                        className="close"
+                                    >
+                                        Close
+                                    </button>
+                                </>
+                            )}
+                        </div>
+                    </div>
+                </div>
             )}
-
-            <div className="modal-actions">
-                {isEditing ? (
-                    <>
-                        <button onClick={handleSave} className="save">
-                            <Check size={12} /> Save
-                        </button>
-                        <button
-                            onClick={() => {
-                                setIsEditing(false);
-                                setNewNotes(notes);
-                            }}
-                            className="cancel"
-                        >
-                            <X size={12} /> Cancel
-                        </button>
-                    </>
-                ) : (
-                    <>
-                        <button onClick={() => setIsEditing(true)} className="edit">
-                            <SquarePen size={12} /> Edit
-                        </button>
-                        <button onClick={() => setShowModal(false)} className="close">
-                            Close
-                        </button>
-                    </>
-                )}
-            </div>
-        </div>
-    </div>
-)}
-
-
         </div>
     );
 };

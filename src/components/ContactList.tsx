@@ -20,7 +20,9 @@ const ContactList: FC<ContactListProps> = ({ handleInfoClick }) => {
     const [contacts, setContacts] = useState<Contact[]>([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
-    const [selectedTab, setSelectedTab] = useState<"unvisited" | "visited">("unvisited");
+    const [selectedTab, setSelectedTab] = useState<"unvisited" | "visited">(
+        "unvisited"
+    );
 
     useEffect(() => {
         const fetchContacts = async () => {
@@ -64,7 +66,9 @@ const ContactList: FC<ContactListProps> = ({ handleInfoClick }) => {
 
     // Filter contacts based on the selected tab
     const filteredContacts = contacts.filter((contact) =>
-        selectedTab === "visited" ? contact.notes.trim() !== "" : contact.notes.trim() === ""
+        selectedTab === "visited"
+            ? contact.notes.trim() !== ""
+            : contact.notes.trim() === ""
     );
 
     return (
@@ -74,13 +78,17 @@ const ContactList: FC<ContactListProps> = ({ handleInfoClick }) => {
             {/* Custom Toggle Button Group */}
             <div className="toggle-buttons">
                 <button
-                    className={`toggle-btn ${selectedTab === "unvisited" ? "active" : ""}`}
+                    className={`toggle-btn ${
+                        selectedTab === "unvisited" ? "active" : ""
+                    }`}
                     onClick={() => setSelectedTab("unvisited")}
                 >
                     Unvisited
                 </button>
                 <button
-                    className={`toggle-btn ${selectedTab === "visited" ? "active" : ""}`}
+                    className={`toggle-btn ${
+                        selectedTab === "visited" ? "active" : ""
+                    }`}
                     onClick={() => setSelectedTab("visited")}
                 >
                     Visited
