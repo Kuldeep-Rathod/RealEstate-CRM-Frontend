@@ -40,16 +40,13 @@ const ContactCard: FC<ContactCardProps> = ({
         setShowStatusDropdown(false); // Hide dropdown after selection
 
         try {
-            const response = await fetch(
-                `http://127.0.0.1:5000/api/v1/leads/${_id}`,
-                {
-                    method: "PUT",
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify({ status: selectedStatus }),
-                }
-            );
+            const response = await fetch(`${SERVER_URL}/leads/${_id}`, {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ status: selectedStatus }),
+            });
 
             if (!response.ok) {
                 throw new Error("Failed to update status");
