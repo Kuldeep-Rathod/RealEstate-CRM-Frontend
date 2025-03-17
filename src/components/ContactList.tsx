@@ -20,6 +20,7 @@ const ContactList: FC<ContactListProps> = ({ handleInfoClick }) => {
     const [contacts, setContacts] = useState<Contact[]>([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
+    const [selectedTab, setSelectedTab] = useState<"unvisited" | "visited">("unvisited");
 
     useEffect(() => {
         const fetchContacts = async () => {
@@ -39,7 +40,7 @@ const ContactList: FC<ContactListProps> = ({ handleInfoClick }) => {
                         phone: contact.phone,
                         company: contact.company || "Unknown Company",
                         status: contact.status,
-                        notes: contact.notes || "No notes available",
+                        notes: contact.notes || "",
                     }))
                 );
             } catch (err) {
@@ -61,18 +62,39 @@ const ContactList: FC<ContactListProps> = ({ handleInfoClick }) => {
         );
     };
 
+    // Filter contacts based on the selected tab
+    const filteredContacts = contacts.filter((contact) =>
+        selectedTab === "visited" ? contact.notes.trim() !== "" : contact.notes.trim() === ""
+    );
+
     return (
         <div className="contact-list">
             <h2 className="heading">Contact List</h2>
+
+            {/* Custom Toggle Button Group */}
+            <div className="toggle-buttons">
+                <button
+                    className={`toggle-btn ${selectedTab === "unvisited" ? "active" : ""}`}
+                    onClick={() => setSelectedTab("unvisited")}
+                >
+                    Unvisited
+                </button>
+                <button
+                    className={`toggle-btn ${selectedTab === "visited" ? "active" : ""}`}
+                    onClick={() => setSelectedTab("visited")}
+                >
+                    Visited
+                </button>
+            </div>
 
             {loading ? (
                 <p className="loading">Loading contacts...</p>
             ) : error ? (
                 <p className="error">{error}</p>
             ) : (
-                <div className="container">
-                    {contacts.length > 0 ? (
-                        contacts.map((contact) => (
+                <div className="contact-container">
+                    {filteredContacts.length > 0 ? (
+                        filteredContacts.map((contact) => (
                             <ContactCard
                                 key={contact._id}
                                 {...contact}

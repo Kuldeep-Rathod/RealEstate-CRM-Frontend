@@ -93,59 +93,52 @@ const ContactCard: FC<ContactCardProps> = ({
             </div>
 
             {showModal && (
-                <div className="modal">
-                    <div className="modal-content">
-                        <h3>{isEditing ? "Edit Notes" : "Notes"}</h3>
+    <div className="modal">
+        <div className="modal-content">
+            <h3>{isEditing ? "Edit Notes" : "Notes"}</h3>
 
-                        {isEditing ? (
-                            <textarea
-                                value={newNotes}
-                                onChange={(e) => setNewNotes(e.target.value)}
-                                rows={3}
-                            />
-                        ) : (
-                            <p>{notes}</p>
-                        )}
-
-                        <div className="modal-actions">
-                            {isEditing ? (
-                                <>
-                                    <button
-                                        onClick={handleSave}
-                                        className="save"
-                                    >
-                                        <Check size={12} /> Save
-                                    </button>
-                                    <button
-                                        onClick={() => {
-                                            setIsEditing(false);
-                                            setNewNotes(notes);
-                                        }}
-                                        className="cancel"
-                                    >
-                                        <X size={12} /> Cancel
-                                    </button>
-                                </>
-                            ) : (
-                                <>
-                                    <button
-                                        onClick={() => setIsEditing(true)}
-                                        className="edit"
-                                    >
-                                        <SquarePen size={12} /> Edit
-                                    </button>
-                                    <button
-                                        onClick={() => setShowModal(false)}
-                                        className="close"
-                                    >
-                                        Close
-                                    </button>
-                                </>
-                            )}
-                        </div>
-                    </div>
-                </div>
+            {isEditing ? (
+                <textarea
+                    value={newNotes}
+                    onChange={(e) => setNewNotes(e.target.value)}
+                    rows={3}
+                />
+            ) : (
+                <p>{notes}</p>
             )}
+
+            <div className="modal-actions">
+                {isEditing ? (
+                    <>
+                        <button onClick={handleSave} className="save">
+                            <Check size={12} /> Save
+                        </button>
+                        <button
+                            onClick={() => {
+                                setIsEditing(false);
+                                setNewNotes(notes);
+                            }}
+                            className="cancel"
+                        >
+                            <X size={12} /> Cancel
+                        </button>
+                    </>
+                ) : (
+                    <>
+                        <button onClick={() => setIsEditing(true)} className="edit">
+                            <SquarePen size={12} /> Edit
+                        </button>
+                        <button onClick={() => setShowModal(false)} className="close">
+                            Close
+                        </button>
+                    </>
+                )}
+            </div>
+        </div>
+    </div>
+)}
+
+
         </div>
     );
 };
