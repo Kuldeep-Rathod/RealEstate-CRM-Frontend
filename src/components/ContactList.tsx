@@ -30,7 +30,17 @@ const ContactList: FC<ContactListProps> = ({ handleInfoClick }) => {
                 setLoading(true);
                 setError(null);
 
-                const response = await fetch(`${SERVER_URL}/leads/`);
+                const response = await fetch(`${SERVER_URL}/leads/`, {
+                    method: "GET",
+                    credentials: "include",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Authorization" :  "Bearer " + localStorage.getItem("token"),
+                    }
+                });
+
+                console.log(response);
+
                 if (!response.ok) throw new Error("Failed to fetch contacts");
 
                 const data: Contact[] = await response.json();

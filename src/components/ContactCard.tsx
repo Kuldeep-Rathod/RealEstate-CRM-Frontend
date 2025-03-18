@@ -44,6 +44,7 @@ const ContactCard: FC<ContactCardProps> = ({
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json",
+                    "Authorization" :  "Bearer " + localStorage.getItem("token"),
                 },
                 body: JSON.stringify({ status: selectedStatus }),
             });
@@ -65,6 +66,7 @@ const ContactCard: FC<ContactCardProps> = ({
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json",
+                    "Authorization" :  "Bearer " + localStorage.getItem("token"),
                 },
                 body: JSON.stringify({ notes: newNotes }),
             });
