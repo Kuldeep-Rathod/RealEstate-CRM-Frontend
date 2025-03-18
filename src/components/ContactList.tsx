@@ -1,7 +1,7 @@
 import { FC, useEffect, useState } from "react";
 import ContactCard from "./ContactCard";
+import axiosInstance from "../utils/axiosInstance";
 
-const SERVER_URL = import.meta.env.VITE_SERVER_URL;
 
 export type Contact = {
     _id: string;
@@ -30,20 +30,7 @@ const ContactList: FC<ContactListProps> = ({ handleInfoClick }) => {
                 setLoading(true);
                 setError(null);
 
-                const response = await fetch(`${SERVER_URL}/leads/`, {
-                    method: "GET",
-                    credentials: "include",
-                    headers: {
-                        "Content-Type": "application/json",
-                        "Authorization" :  "Bearer " + localStorage.getItem("token"),
-                    }
-                });
-
-                console.log(response);
-
-                if (!response.ok) throw new Error("Failed to fetch contacts");
-
-                const data: Contact[] = await response.json();
+                const { data } = await axiosInstance.get<Contact[]>("/leads/");
 
                 setContacts(
                     data.map((contact) => ({

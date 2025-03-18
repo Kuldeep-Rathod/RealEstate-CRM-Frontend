@@ -6,8 +6,7 @@ import {
     Check,
     X,
 } from "lucide-react";
-
-const SERVER_URL = import.meta.env.VITE_SERVER_URL;
+import axiosInstance from "../utils/axiosInstance";
 
 export type ContactCardProps = {
     _id: string;
@@ -40,16 +39,11 @@ const ContactCard: FC<ContactCardProps> = ({
         setShowStatusDropdown(false); // Hide dropdown after selection
 
         try {
-            const response = await fetch(`${SERVER_URL}/leads/${_id}`, {
-                method: "PUT",
-                headers: {
-                    "Content-Type": "application/json",
-                    "Authorization" :  "Bearer " + localStorage.getItem("token"),
-                },
-                body: JSON.stringify({ status: selectedStatus }),
+            const response = await axiosInstance.put(`/leads/${_id}`, {
+                status: selectedStatus,
             });
 
-            if (!response.ok) {
+            if (response.status !== 200) {
                 throw new Error("Failed to update status");
             }
 
@@ -62,16 +56,11 @@ const ContactCard: FC<ContactCardProps> = ({
 
     const handleSave = async () => {
         try {
-            const response = await fetch(`${SERVER_URL}/leads/${_id}`, {
-                method: "PUT",
-                headers: {
-                    "Content-Type": "application/json",
-                    "Authorization" :  "Bearer " + localStorage.getItem("token"),
-                },
-                body: JSON.stringify({ notes: newNotes }),
+            const response = await axiosInstance.put(`/leads/${_id}`, {
+                notes: newNotes,
             });
 
-            if (!response.ok) {
+            if (response.status !== 200) {
                 throw new Error("Failed to update notes");
             }
 

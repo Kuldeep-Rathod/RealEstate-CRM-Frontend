@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-
-const SERVER_URL = import.meta.env.VITE_SERVER_URL;
-
+import axiosInstance from "../utils/axiosInstance";
 
 const Login: React.FC = () => {
     const [email, setEmail] = useState<string>("");
@@ -15,24 +13,20 @@ const Login: React.FC = () => {
         setError(null);
 
         try {
-            const response = await fetch(`${SERVER_URL}/auth/login`, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                credentials: "include", // Enable sending & receiving cookies
-                body: JSON.stringify({ email, password }),
+            const response = await axiosInstance.post("/auth/login", {
+                email,
+                password,
             });
+            const data = await response.data;
 
-            const data = await response.json();
-            console.log(data);
-
-            if (!response.ok) {
+            if (response.status !== 200) {
                 throw new Error(data.message || "Login failed");
             }
+
             localStorage.setItem("token", data.token);
+
             alert("Login successful!");
-            
+
             navigate("/contacts");
             // Redirect or update UI after login
         } catch (error: unknown) {
