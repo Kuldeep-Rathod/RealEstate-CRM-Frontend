@@ -17,6 +17,8 @@ const Register: React.FC = () => {
         e.preventDefault();
         setError(null);
 
+        console.log("Sending Data:", { name, email, password });
+
         if (password !== confirmPassword) {
             setError("Passwords do not match!");
             return;
@@ -26,9 +28,12 @@ const Register: React.FC = () => {
             name,
             email,
             password,
+            confirmPassword,
         });
 
         const data = response.data;
+
+        console.log(data);
 
         if (response.status !== 201) {
             throw new Error(data.message || "Registration failed");
