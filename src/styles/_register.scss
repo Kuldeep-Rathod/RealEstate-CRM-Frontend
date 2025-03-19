@@ -1,11 +1,11 @@
-.login-container {
+.register-container {
     display: flex;
     justify-content: center;
     align-items: center;
     width: 100vw;
     height: 100vh;
 
-    .login-form {
+    .register-form {
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -33,7 +33,7 @@
         }
 
         .input-group {
-            width: 100%; // Ensuring full width consistency
+            width: 100%; // Ensure full width consistency
             margin-bottom: 1rem;
             text-align: left;
 
@@ -44,19 +44,19 @@
             }
 
             input {
-                width: 100%; // Ensures input matches form width
+                width: 100%; // Ensure input width matches form width
                 padding: 0.5rem;
                 border: 1px solid #ccc;
                 border-radius: 5px;
                 font-size: 1rem;
-                box-sizing: border-box; // Prevents width inconsistencies
+                box-sizing: border-box; // Prevents padding from affecting width
             }
         }
 
-        .login-button {
+        .register-button {
             width: 100%; // Match input width
             padding: 0.75rem;
-            background-color: #007bff;
+            background-color: #28a745;
             color: white;
             border: none;
             border-radius: 5px;
@@ -69,7 +69,7 @@
             position: relative;
 
             &:hover {
-                background-color: #0056b3;
+                background-color: #218838;
             }
 
             &:disabled {
@@ -90,10 +90,6 @@
 }
 
 @keyframes spin {
-    0% {
-        transform: rotate(0deg);
-    }
-    100% {
-        transform: rotate(360deg);
-    }
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
 }
