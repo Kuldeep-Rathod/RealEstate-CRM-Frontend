@@ -2,7 +2,6 @@ import { FC, useEffect, useState } from "react";
 import ContactCard from "./ContactCard";
 import axiosInstance from "../utils/axiosInstance";
 
-
 export type Contact = {
     _id: string;
     name: string;
