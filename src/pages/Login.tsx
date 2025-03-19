@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axiosInstance from "../utils/axiosInstance";
+import Swal from "sweetalert2";
+import asyncHandler from "../utils/asyncHandler";
 
 const Login: React.FC = () => {
     const [email, setEmail] = useState<string>("");
@@ -9,31 +11,31 @@ const Login: React.FC = () => {
     const [loading, setLoading] = useState<boolean>(false);
     const navigate = useNavigate();
 
-    const handleSubmit = async (e: React.FormEvent) => {
+    const handleSubmit = asyncHandler(async (e: React.FormEvent) => {
         e.preventDefault();
         setError(null);
-        setLoading(true);
 
-        try {
-            const response = await axiosInstance.post("/auth/login", {
-                email,
-                password,
-            });
-            const data = response.data;
+        const response = await axiosInstance.post("/auth/login", {
+            email,
+            password,
+        });
 
-            if (response.status !== 200) {
-                throw new Error(data.message || "Login failed");
-            }
+        const data = response.data;
 
-            localStorage.setItem("token", data.token);
-            alert("Login successful!");
-            navigate("/contacts");
-        } catch (error: unknown) {
-            setError((error as Error).message);
-        } finally {
-            setLoading(false);
+        if (response.status !== 200) {
+            throw new Error(data.message || "Login failed");
         }
-    };
+
+        localStorage.setItem("token", data.token);
+        Swal.fire({
+            icon: "success",
+            title: "Login Successful",
+            text: "Welcome back!",
+            timer: 1500,
+            showConfirmButton: false,
+        });
+        navigate("/contacts");
+    }, setLoading);
 
     return (
         <div className="login-container">
@@ -62,7 +64,11 @@ const Login: React.FC = () => {
                     />
                 </div>
 
-                <button type="submit" disabled={loading} className="login-button">
+                <button
+                    type="submit"
+                    disabled={loading}
+                    className="login-button"
+                >
                     {loading ? <span className="spinner"></span> : "Login"}
                 </button>
             </form>
