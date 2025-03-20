@@ -38,8 +38,8 @@ const Login: React.FC = () => {
     }, setLoading);
 
     return (
-        <div className="login-container">
-            <form className="login-form" onSubmit={handleSubmit}>
+        <div className="auth-container">
+            <form className="auth-form" onSubmit={handleSubmit}>
                 <h2>Login</h2>
 
                 {error && <p className="error">{error}</p>}
@@ -71,6 +71,9 @@ const Login: React.FC = () => {
                 >
                     {loading ? <span className="spinner"></span> : "Login"}
                 </button>
+                <p>
+                    don't have an account? <a href="/register">Register</a>
+                </p>
             </form>
         </div>
     );

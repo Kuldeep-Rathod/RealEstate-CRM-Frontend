@@ -53,8 +53,8 @@ const Register: React.FC = () => {
     }, setLoading);
 
     return (
-        <div className="register-container">
-            <form className="register-form" onSubmit={handleSubmit}>
+        <div className="auth-container">
+            <form className="auth-form" onSubmit={handleSubmit}>
                 <h2>Register</h2>
 
                 {error && <p className="error">{error}</p>}
@@ -99,9 +99,16 @@ const Register: React.FC = () => {
                     />
                 </div>
 
-                <button type="submit" disabled={loading} className="register-button">
+                <button
+                    type="submit"
+                    disabled={loading}
+                    className="register-button"
+                >
                     {loading ? <span className="spinner"></span> : "Register"}
                 </button>
+                <p>
+                    Already have an account? <a href="/login">Login</a>
+                </p>
             </form>
         </div>
     );
