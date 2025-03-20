@@ -102,7 +102,7 @@ const Register: React.FC = () => {
                 <button
                     type="submit"
                     disabled={loading}
-                    className="register-button"
+                    className="auth-button register-button"
                 >
                     {loading ? <span className="spinner"></span> : "Register"}
                 </button>

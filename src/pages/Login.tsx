@@ -67,7 +67,7 @@ const Login: React.FC = () => {
                 <button
                     type="submit"
                     disabled={loading}
-                    className="login-button"
+                    className="auth-button login-button"
                 >
                     {loading ? <span className="spinner"></span> : "Login"}
                 </button>
