@@ -1,0 +1,22 @@
+.navbar {
+    display: flex;
+    justify-content: space-around;
+    gap: 10px;
+    padding: 10px;
+    background-color: #000; // Black background
+
+    .nav-button {
+        background: #fff; // White buttons
+        color: #000; // Black text
+        border: 2px solid #007bff; // Blue border
+        padding: 10px 15px;
+        font-size: 12px;
+        cursor: pointer;
+        transition: 0.3s ease-in-out;
+
+        &:hover {
+            background: #007bff; // Blue hover effect
+            color: #fff; // White text on hover
+        }
+    }
+}

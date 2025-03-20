@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import axiosInstance from "../utils/axiosInstance";
 import Swal from "sweetalert2";
 import asyncHandler from "../utils/asyncHandler";
-import Sidebar from "../components/Sidebar";
+import Navbar from "../components/Navbar";
 
 const UploadCSV: React.FC = () => {
     const [file, setFile] = useState<File | null>(null);
@@ -49,21 +49,28 @@ const UploadCSV: React.FC = () => {
     }, setLoading);
 
     return (
-        <div className="upload-container">
-            <Sidebar />
+        <>
+            <Navbar />
+            <div className="upload-container">
+                {/* <Sidebar /> */}
 
-            <h2>Upload Leads CSV</h2>
+                <h2>Upload Leads CSV</h2>
 
-            {error && <p className="error">{error}</p>}
+                {error && <p className="error">{error}</p>}
 
-            <div className="file-input">
-                <input type="file" accept=".csv" onChange={handleFileChange} />
+                <div className="file-input">
+                    <input
+                        type="file"
+                        accept=".csv"
+                        onChange={handleFileChange}
+                    />
+                </div>
+
+                <button onClick={handleUpload} disabled={loading || !file}>
+                    {loading ? <span className="spinner"></span> : "Upload"}
+                </button>
             </div>
-
-            <button onClick={handleUpload} disabled={loading || !file}>
-                {loading ? <span className="spinner"></span> : "Upload"}
-            </button>
-        </div>
+        </>
     );
 };
 

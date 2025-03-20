@@ -1,6 +1,5 @@
 import { Link, useLocation } from "react-router-dom";
-import { FaAngleLeft } from "react-icons/fa6";
-import { HiMenu } from "react-icons/hi";
+import Hamburger from "hamburger-react";
 import { IoIosLogOut } from "react-icons/io";
 import { FaUpload, FaList } from "react-icons/fa";
 import { useEffect, useState } from "react";
@@ -23,9 +22,13 @@ const Sidebar = () => {
     return (
         <>
             {isMobile && (
-                <button id="hamburger" onClick={() => setShowModal(!showModal)}>
-                    <HiMenu />
-                </button>
+                <div id="hamburger" onClick={() => setShowModal(!showModal)}>
+                    <Hamburger
+                        toggled={showModal}
+                        toggle={setShowModal}
+                        color="#fff"
+                    />
+                </div>
             )}
 
             <aside
@@ -48,26 +51,17 @@ const Sidebar = () => {
                     <h2>
                         <Link to="/dashboard">Lead Manager</Link>
                     </h2>
-
-                    {isMobile && (
-                        <button
-                            className="close-btn"
-                            onClick={() => setShowModal(!showModal)}
-                        >
-                            <FaAngleLeft />
-                        </button>
-                    )}
                 </div>
 
                 <ul className="sidebar-menu">
                     <SidebarItem
-                        url="/leads"
+                        url="/contacts"
                         text="All Leads"
                         icon={FaList}
                         location={location}
                     />
                     <SidebarItem
-                        url="/upload"
+                        url="/upload-csv"
                         text="Upload Leads"
                         icon={FaUpload}
                         location={location}

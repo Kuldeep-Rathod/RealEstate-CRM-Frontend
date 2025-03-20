@@ -31,36 +31,54 @@
 }
 
 .sidebar {
-    background: white;
-    width: 18rem;
+    width: 14rem;
     height: 100vh;
+    background: white;
+    color: #333;
+    position: fixed;
+    top: 0;
+    left: 0;
+    transition: all 0.5s ease-in-out;
     display: flex;
     flex-direction: column;
-    padding: 2rem 1.5rem;
+    z-index: 1000;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
 
-    .sidebar-title {
+    &-header {
+        padding: 1.5rem;
+        text-align: center;
+        background: white;
         font-size: 1.5rem;
         font-weight: bold;
         color: #007bff;
-        margin-bottom: 1.5rem;
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
     }
 
-    ul {
+    &-menu {
         list-style: none;
         padding: 0;
         margin: 0;
+        flex-grow: 1;
 
         li {
-            margin-bottom: 1rem;
-            transition: all 0.3s ease-in-out;
+            padding: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            font-size: 1rem;
+            transition: background 0.3s ease-in-out;
 
             a {
+                text-decoration: none;
+                color: #333;
                 display: flex;
                 align-items: center;
                 gap: 0.8rem;
-                text-decoration: none;
                 font-size: 1.1rem;
-                color: #333;
                 padding: 0.75rem 1rem;
                 border-radius: 8px;
                 transition: background 0.3s ease-in-out;
@@ -74,14 +92,39 @@
                     color: #007bff;
                 }
             }
-        }
 
-        .active {
-            a {
-                background: rgba(0, 123, 255, 0.2);
-                color: #007bff;
-                font-weight: bold;
+            &.active {
+                a {
+                    background: rgba(0, 123, 255, 0.2);
+                    color: #007bff;
+                    font-weight: bold;
+                }
             }
         }
+    }
+}
+
+// 📌 Mobile Sidebar Styling
+@media (max-width: 1100px) {
+    .sidebar {
+        width: 14rem;
+        position: fixed;
+        left: -18rem;
+        transition: left 0.5s ease-in-out;
+    }
+
+    .sidebar.show {
+        left: 0;
+    }
+
+    #hamburger {
+        position: fixed;
+        top: 1rem;
+        left: 1rem;
+        z-index: 1001;
+        cursor: pointer;
+        background: rgba(0, 123, 255, 0.9);
+        padding: 0.5rem;
+        border-radius: 50%;
     }
 }
