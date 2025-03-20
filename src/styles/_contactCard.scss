@@ -33,6 +33,10 @@
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
+
+            @media screen and (max-width: 375px) {
+                max-width: 105px;
+            }
         }
 
         .phone,
@@ -56,15 +60,15 @@
         &.new {
             background: #3b82f6; // Blue
         }
-    
+
         &.hot {
             background: #ef4444; // Red
         }
-    
+
         &.cold {
             background: #6b7280; // Gray
         }
-    
+
         &.warm {
             background: #f59e0b; // Orange
         }
