@@ -22,6 +22,7 @@ const ContactList: FC<ContactListProps> = ({ handleInfoClick }) => {
     const [selectedTab, setSelectedTab] = useState<"unvisited" | "visited">(
         "unvisited"
     );
+    const [statusTab, setStatusTab] = useState<"all" | "new" | "hot" | "cold" | "warm">("all");
 
     useEffect(() => {
         const fetchContacts = async () => {
@@ -60,31 +61,45 @@ const ContactList: FC<ContactListProps> = ({ handleInfoClick }) => {
         );
     };
 
-    // Filter contacts based on the selected tab
+    // Filter contacts based on visited/unvisited
     const filteredContacts = contacts.filter((contact) =>
         selectedTab === "visited"
             ? contact.notes.trim() !== ""
             : contact.notes.trim() === ""
     );
 
+    // Further filter based on status
+    const filteredByStatus = filteredContacts.filter((contact) =>
+        statusTab === "all" ? true : contact.status === statusTab
+    );
+
     return (
         <div className="contact-list">
             <h2 className="heading">Contact List</h2>
 
-            {/* Custom Toggle Button Group */}
+            {/* Status Filter Buttons */}
+            <div className="status-tabs">
+                {["all", "new", "hot", "cold", "warm"].map((status) => (
+                    <p
+                        key={status}
+                        className={`status-tabs ${statusTab === status ? "active" : ""}`}
+                        onClick={() => setStatusTab(status as typeof statusTab)}
+                    >
+                        {status.toUpperCase()}
+                    </p>
+                ))}
+            </div>
+
+            {/* Visited/Unvisited Toggle */}
             <div className="toggle-buttons">
                 <button
-                    className={`toggle-btn ${
-                        selectedTab === "unvisited" ? "active" : ""
-                    }`}
+                    className={`toggle-btn ${selectedTab === "unvisited" ? "active" : ""}`}
                     onClick={() => setSelectedTab("unvisited")}
                 >
                     Unvisited
                 </button>
                 <button
-                    className={`toggle-btn ${
-                        selectedTab === "visited" ? "active" : ""
-                    }`}
+                    className={`toggle-btn ${selectedTab === "visited" ? "active" : ""}`}
                     onClick={() => setSelectedTab("visited")}
                 >
                     Visited
@@ -97,8 +112,8 @@ const ContactList: FC<ContactListProps> = ({ handleInfoClick }) => {
                 <p className="error">{error}</p>
             ) : (
                 <div className="contact-container">
-                    {filteredContacts.length > 0 ? (
-                        filteredContacts.map((contact) => (
+                    {filteredByStatus.length > 0 ? (
+                        filteredByStatus.map((contact) => (
                             <ContactCard
                                 key={contact._id}
                                 {...contact}
