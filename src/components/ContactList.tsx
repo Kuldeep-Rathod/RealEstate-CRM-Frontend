@@ -30,7 +30,7 @@ const ContactList: FC<ContactListProps> = ({ handleInfoClick }) => {
                 setLoading(true);
                 setError(null);
 
-                const { data } = await axiosInstance.get<Contact[]>("/leads/");
+                const { data } = await axiosInstance.get<Contact[]>(`/leads/userLeads`);
 
                 setContacts(
                     data.map((contact) => ({
@@ -75,8 +75,6 @@ const ContactList: FC<ContactListProps> = ({ handleInfoClick }) => {
 
     return (
         <div className="contact-list">
-            <h2 className="heading">Contact List</h2>
-
             {/* Status Filter Buttons */}
             <div className="status-tabs">
                 {["all", "new", "hot", "cold", "warm"].map((status) => (

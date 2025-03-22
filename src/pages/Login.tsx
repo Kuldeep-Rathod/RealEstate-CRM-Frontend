@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import axiosInstance from "../utils/axiosInstance";
 import Swal from "sweetalert2";
 import asyncHandler from "../utils/asyncHandler";
+import { storeToken } from "../utils/auth";
 
 const Login: React.FC = () => {
     const [email, setEmail] = useState<string>("");
@@ -26,7 +27,9 @@ const Login: React.FC = () => {
             throw new Error(data.message || "Login failed");
         }
 
-        localStorage.setItem("token", data.token);
+        // Store token for 8 hours
+        storeToken(data.token, 8);
+
         Swal.fire({
             icon: "success",
             title: "Login Successful",
