@@ -1,3 +1,4 @@
+
 @use "contactCard";
 @use "contactList";
 @use "auth";
@@ -5,8 +6,19 @@
 @use "sidebar";
 @use "navbar";
 
+@import "./admin/mixin";
+
+
+@import "./admin/dashboard";
+@import "./admin/products";
+@import "./admin/customers";
+@import "./admin/chart";
+@import "./admin/dashboardApp";
+@import "./admin/mediaQuery";
+
 #root {
     max-width: 1280px;
     margin: 0 auto;
     // text-align: center;
 }
+

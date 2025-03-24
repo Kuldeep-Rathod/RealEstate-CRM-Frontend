@@ -35,7 +35,7 @@ const Register: React.FC = () => {
 
         console.log(data);
 
-        if (response.status !== 201) {
+        if (response.status !== 200) {
             throw new Error(data.message || "Registration failed");
         }
 
@@ -49,7 +49,7 @@ const Register: React.FC = () => {
             showConfirmButton: false,
         });
 
-        navigate("/contacts");
+        navigate("/verify-otp?email=" + email);
     }, setLoading);
 
     return (
