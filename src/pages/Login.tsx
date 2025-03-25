@@ -27,8 +27,8 @@ const Login: React.FC = () => {
             throw new Error(data.message || "Login failed");
         }
 
-        // Store token for 8 hours
-        storeToken(data.token, 8);
+        // Store authToken for 8 hours
+        storeToken(data.authToken, 8);
 
         Swal.fire({
             icon: "success",

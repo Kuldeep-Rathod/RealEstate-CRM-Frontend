@@ -14,18 +14,19 @@ const axiosInstance = axios.create({
 // Request Interceptor: Attach Authorization Token
 axiosInstance.interceptors.request.use(
     (config) => {
-        const token = getToken(); // Get valid token
+        const authToken = getToken(); // Get valid token
 
-        if (token) {
-            config.headers.Authorization = `Bearer ${token}`;
+        if (authToken) {
+            config.headers.Authorization = `Bearer ${authToken}`;
+        } else {
+            delete config.headers.Authorization; // Ensure no invalid header is sent
         }
 
         return config;
     },
-    (error) => {
-        return Promise.reject(error);
-    }
+    (error) => Promise.reject(error)
 );
+
 
 // Response Interceptor: Handle Global Errors
 axiosInstance.interceptors.response.use(

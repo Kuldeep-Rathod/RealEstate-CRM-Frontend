@@ -1,0 +1,72 @@
+.otp-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    width: 250px;
+    margin: 25% auto;
+
+    @media (min-width: 768px) {
+        width: 350px;
+    }
+  
+    h2 {
+        margin-bottom: 15px;
+        font-size: 20px;
+        color: #333;
+    }
+  
+    .otp-inputs {
+        display: flex;
+        gap: 15px;
+        margin-bottom: 15px;
+
+        @media (min-width: 768px) {
+            gap: 25px;
+        }
+      
+        .otp-input {
+            width: 40px;
+            height: 40px;
+            font-size: 18px;
+            text-align: center;
+            border: 2px solid #ccc;
+            border-radius: 5px;
+            outline: none;
+            transition: border-color 0.3s;
+          
+            &:focus {
+                border-color: #007bff;
+            }
+        }
+    }
+  
+    .error-text {
+        color: red;
+        font-size: 14px;
+        margin-bottom: 10px;
+    }
+  
+    .verify-button {
+        padding: 10px 15px;
+        font-size: 16px;
+        color: #fff;
+        background: #007bff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background 0.3s;
+      
+        &:disabled {
+            background: #aaa;
+            cursor: not-allowed;
+        }
+      
+        &:hover:not(:disabled) {
+            background: #0056b3;
+        }
+    }
+}

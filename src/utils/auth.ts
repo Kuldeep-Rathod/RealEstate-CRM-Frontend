@@ -1,22 +1,27 @@
-export const storeToken = (token: string, durationInMinutes: number = 1) => {
-    const expiresAt = Date.now() + durationInMinutes * 60 * 60 * 1000; // Set expiration time
-    localStorage.setItem("authToken", JSON.stringify({ token, expiresAt }));
+export const storeToken = (authToken: string, durationInMinutes: number = 10) => {
+    const expiresAt = Date.now() + durationInMinutes * 60 * 1000; // ✅ Fix duration calculation
+    localStorage.setItem("authToken", JSON.stringify({ authToken, expiresAt }));
 };
 
 export const getToken = () => {
     const storedData = localStorage.getItem("authToken");
-
     if (!storedData) return null;
 
-    const { token, expiresAt } = JSON.parse(storedData);
+    try {
+        const { authToken, expiresAt } = JSON.parse(storedData);
+        
+        if (Date.now() > expiresAt) {
+            localStorage.removeItem("authToken"); // Remove expired token
+            console.log("Token expired and removed");
+            return null;
+        }
 
-    if (Date.now() > expiresAt) {
-        localStorage.removeItem("authToken"); // Remove expired token
-        console.log("Token expired and removed");
+        return authToken; // ✅ Return plain string (not JSON)
+    } catch (error) {
+        console.error("Invalid token format:", error);
+        localStorage.removeItem("authToken"); // Remove corrupted token
         return null;
     }
-
-    return token;
 };
 
 export const removeToken = () => {

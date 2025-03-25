@@ -39,13 +39,13 @@ const Register: React.FC = () => {
             throw new Error(data.message || "Registration failed");
         }
 
-        localStorage.setItem("token", data.token);
+        localStorage.setItem("authToken", data.authToken);
 
         Swal.fire({
             icon: "success",
-            title: "Registration Successful",
-            text: "Welcome to Lead Manager!",
-            timer: 1500,
+            title: "Please verify your email",
+            text: "OTP has been sent to your email",
+            timer: 2000,
             showConfirmButton: false,
         });
 
